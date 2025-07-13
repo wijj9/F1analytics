@@ -4,6 +4,12 @@ const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000
 const API_KEY = import.meta.env.VITE_F1ANALYTICS_API_KEY;
 const API_KEY_HEADER = 'X-API-Key';
 
+export const SUPABASE_CACHE_URL = import.meta.env.VITE_SUPABASE_CACHE_BASE_URL;
+const USE_SUPABASE_CACHE = import.meta.env.VITE_USE_SUPABASE_CACHE === 'true';
+const baseURL = USE_SUPABASE_CACHE
+    ? import.meta.env.VITE_SUPABASE_CACHE_BASE_URL
+    : import.meta.env.VITE_API_BASE_URL;
+
 // --- Helper to get headers ---
 const getHeaders = (): HeadersInit => {
     const headers: HeadersInit = {
@@ -16,6 +22,29 @@ const getHeaders = (): HeadersInit => {
     }
     return headers;
 };
+
+async function fetchCachedOrApi<T>(path: string): Promise<T> {
+    if (USE_SUPABASE_CACHE) {
+        try {
+            const supabaseUrl = `${SUPABASE_CACHE_URL}${path}`;
+            const supabaseRes = await fetch(supabaseUrl);
+            if (supabaseRes.ok) {
+                return await supabaseRes.json() as T;
+            }
+            console.warn(`[Supabase] ${path} not found, falling back to API`);
+        } catch (err) {
+            console.warn(`[Supabase Error] ${path}:`, err);
+        }
+    }
+
+    const apiUrl = `${API_BASE_URL}${path}`;
+    const res = await fetch(apiUrl, { headers: getHeaders() });
+    if (!res.ok) {
+        const errorData = await res.json().catch(() => ({}));
+        throw new Error(errorData.detail || `API error: ${res.status}`);
+    }
+    return await res.json() as T;
+}
 
 // --- Data Structures (Exported) ---
 export interface LapTimeDataPoint {
@@ -386,21 +415,12 @@ export const fetchTireStrategy = async (year: number, event: string, session: st
 
 /** Fetches driver standings for a given year. */
 export const fetchDriverStandings = async (year: number): Promise<DriverStanding[]> => {
-    const params = new URLSearchParams({ year: year.toString() });
-    const url = `${API_BASE_URL}/api/standings/drivers?${params.toString()}`;
-    console.log(`Fetching driver standings from: ${url}`);
     try {
-        const response = await fetch(url, { headers: getHeaders() });
-        if (!response.ok) {
-            let errorDetail = `HTTP error! status: ${response.status}`;
-            try { const errorData = await response.json(); errorDetail = errorData.detail || errorDetail; } catch (e) { /* Ignore */ }
-            console.error(`API Error: ${errorDetail}`);
-            throw new Error(errorDetail);
-        }
-        const data: DriverStanding[] = await response.json();
-        console.log(`Successfully fetched driver standings for ${year}.`);
-        return data;
-    } catch (error) { console.error(`Error fetching driver standings for ${year}:`, error); throw error; }
+        return await fetchCachedOrApi<DriverStanding[]>(`/${year}/standings/standings.json`);
+    } catch (error) {
+        console.error(`Error fetching driver standings for ${year}:`, error);
+        throw error;
+    }
 };
 
 /** Fetches team standings for a given year. */
@@ -424,45 +444,29 @@ export const fetchTeamStandings = async (year: number): Promise<TeamStanding[]> 
 
 /** Fetches race results summary (winners) for a given year. */
 export const fetchRaceResults = async (year: number): Promise<RaceResult[]> => {
-    const params = new URLSearchParams({ year: year.toString() });
-    const url = `${API_BASE_URL}/api/results/races?${params.toString()}`;
-    console.log(`Fetching race results summary from: ${url}`);
     try {
-        const response = await fetch(url, { headers: getHeaders() });
-        if (!response.ok) {
-            let errorDetail = `HTTP error! status: ${response.status}`;
-            try { const errorData = await response.json(); errorDetail = errorData.detail || errorDetail; } catch (e) { /* Ignore */ }
-            console.error(`API Error: ${errorDetail}`);
-            throw new Error(errorDetail);
-        }
-        const data: RaceResult[] = await response.json();
-        console.log(`Successfully fetched ${data.length} race results summary for ${year}.`);
-        return data;
-    } catch (error) { console.error(`Error fetching race results for ${year}:`, error); throw error; }
-};
-
-/** Fetches detailed race results for a specific event and session. */
-export const fetchSpecificRaceResults = async (year: number, eventSlug: string, session: string): Promise<DetailedRaceResult[]> => {
-    // Add the session as a query parameter
-    const params = new URLSearchParams({ session });
-    const url = `${API_BASE_URL}/api/results/race/${year}/${eventSlug}?${params.toString()}`;
-    console.log(`Fetching detailed race results from: ${url}`); // Log includes session now
-    try {
-        const response = await fetch(url, { headers: getHeaders() });
-        if (!response.ok) {
-            let errorDetail = `HTTP error! status: ${response.status}`;
-            try { const errorData = await response.json(); errorDetail = errorData.detail || errorDetail; } catch (e) { /* Ignore */ }
-            console.error(`API Error: ${errorDetail}`);
-            throw new Error(errorDetail);
-        }
-        const data: DetailedRaceResult[] = await response.json();
-        console.log(`Successfully fetched detailed results for ${year} ${eventSlug} session ${session}.`);
-        return data;
+        return await fetchCachedOrApi<RaceResult[]>(`/${year}/race_results.json`);
     } catch (error) {
-        console.error(`Error fetching detailed race results for ${year} ${eventSlug} session ${session}:`, error);
+        console.error(`Error fetching race results for ${year}:`, error);
         throw error;
     }
 };
+
+/** Fetches detailed race results for a specific event and session. */
+export const fetchSpecificRaceResults = async (
+    year: number,
+    eventSlug: string,
+    session: string
+): Promise<DetailedRaceResult[]> => {
+    const path = `/${year}/races/${eventSlug}_${session}.json`;
+    try {
+        return await fetchCachedOrApi<DetailedRaceResult[]>(path);
+    } catch (error) {
+        console.error(`Error fetching specific race results for ${year} ${eventSlug} ${session}:`, error);
+        throw error;
+    }
+};
+
 
 /** Fetches track evolution data */
 export const fetchTrackEvolution = async (year: number, event: string, session: string): Promise<TrackEvolutionResponse> => {
