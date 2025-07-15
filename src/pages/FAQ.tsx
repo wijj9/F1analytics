@@ -31,10 +31,6 @@ const faqs = [
     question: "How can I report a bug or suggest a feature?",
     answer: "Please use the project's GitHub repository issue tracker.",
   },
-  {
-    question: "How is my account data secured?",
-    answer: "We use Supabase for authentication and database management. Passwords are hashed, and we implement security measures to protect your data. Please refer to our Privacy Policy for more details.",
-  },
 ];
 
 const FAQ = () => {
