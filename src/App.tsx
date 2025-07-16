@@ -39,6 +39,7 @@ const App = () => (
       <SeasonProvider>
         <AuthProvider>
           <GoogleAnalytics /> {/* Google Analytics is initialized here */}
+          <Analytics />
           <BrowserRouter>
             <ScrollToTop />
             <Routes>
