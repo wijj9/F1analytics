@@ -1,6 +1,6 @@
 import React, { useState, useMemo, useRef } from 'react';
 import { useNavigate, Link } from 'react-router-dom'; // Import Link
-import { motion, useInView, useScroll, useTransform } from 'framer-motion'; // Added framer-motion imports
+import {motion, useInView, useScroll, useTransform, Variants} from 'framer-motion'; // Added framer-motion imports
 import { Award, Flag, Lock, Cpu, Timer, User, Gauge, ArrowRight, CreditCard, Calendar, Clock, Users, Trophy, ChevronDown } from 'lucide-react'; // Added Trophy and ChevronDown icons
 import Navbar from '@/components/Navbar';
 import F1Card from '@/components/F1Card';
@@ -45,7 +45,7 @@ const rookiesByYear: { [year: string]: string[] } = {
 };
 
 // Animation variants
-const fadeInUp = {
+const fadeInUp : Variants = {
   hidden: { opacity: 0, y: 30 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
 };

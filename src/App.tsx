@@ -15,6 +15,8 @@ import Footer from "./components/Footer";
 import { SeasonProvider } from "./contexts/SeasonContext";
 import { AuthProvider } from "./contexts/AuthContext";
 import ScrollToTop from "@/components/ScrollToTop";
+import GoogleAnalytics from "@/components/GoogleAnalytics.tsx";
+import { Analytics } from "@vercel/analytics/react"
 
 const queryClient = new QueryClient();
 
@@ -36,6 +38,7 @@ const App = () => (
       <Sonner />
       <SeasonProvider>
         <AuthProvider>
+          <GoogleAnalytics /> {/* Google Analytics is initialized here */}
           <BrowserRouter>
             <ScrollToTop />
             <Routes>
