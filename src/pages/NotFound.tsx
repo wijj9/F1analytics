@@ -1,7 +1,7 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { AlertCircle, Home } from "lucide-react";
+import {AlertCircle, Construction, Home} from "lucide-react";
 import Navbar from "@/components/Navbar";
 
 const NotFound = () => {
@@ -21,7 +21,7 @@ const NotFound = () => {
       
       <div className="container mx-auto px-4 py-16 flex flex-col items-center justify-center min-h-[80vh]">
         <div className="animate-pulse mb-8">
-          <AlertCircle className="h-24 w-24 text-red-500" />
+          <Construction className="h-24 w-24 text-red-500" />
         </div>
         
         <div className="text-center max-w-md">
@@ -29,8 +29,7 @@ const NotFound = () => {
           <h2 className="text-2xl md:text-3xl font-bold mb-6 text-gray-100">Page Not Found</h2>
           
           <p className="text-gray-400 mb-8">
-            The page you're looking for doesn't exist or has been moved. 
-            This section of the track is under construction.
+            This section is under construction.
           </p>
           
           <div className="flex flex-col md:flex-row gap-4 justify-center">
