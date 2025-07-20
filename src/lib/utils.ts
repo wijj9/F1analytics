@@ -149,7 +149,7 @@ export async function exportChartAsImage(
            C276.012,210.284,278.661,215.456,283.112,218.706z"/>
 </svg>`;
     const F1Analytics = document.createElement('span');
-    F1Analytics.innerHTML = '<span style="color: white; font-weight: 600; letter-spacing: -0.02em;">/span><span style="color: #ef4444; font-weight: 600; letter-spacing: -0.02em;">F1 Analytics</span>';
+    F1Analytics.innerHTML = '<span style="color: white; font-weight: 600; letter-spacing: -0.02em;"><span style="color: #ef4444; font-weight: 600; letter-spacing: -0.02em;">F1 Analytics</span>';
     brandingDiv.appendChild(gaugeIcon);
     brandingDiv.appendChild(F1Analytics);
     originalElement.appendChild(brandingDiv);
