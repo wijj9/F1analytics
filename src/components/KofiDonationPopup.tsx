@@ -43,11 +43,11 @@ const KofiDonationPopup: React.FC<KofiDonationPopupProps> = ({ isOpen, onClose }
                 </div>
                 
                 <h3 className="text-lg font-semibold text-white">
-                  Buy us a coffee? ☕
+                  Buy me a coffee? ☕
                 </h3>
 
                 <p className="text-sm text-gray-300 leading-relaxed">
-                  F1 analytics require costly server resources. Your support helps us:
+                  F1 analytics require costly server resources. Your support helps me:
                 </p>
                 
                 <div className="grid grid-cols-2 gap-3 mt-4">
