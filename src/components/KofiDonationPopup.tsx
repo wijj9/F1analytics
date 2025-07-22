@@ -25,10 +25,10 @@ const KofiDonationPopup: React.FC<KofiDonationPopupProps> = ({ isOpen, onClose }
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2 text-xl font-bold">
             <Heart className="h-5 w-5 text-red-500" />
-            Support F1 Analyticss
+            Support F1 Analytics
           </DialogTitle>
           <DialogDescription className="text-gray-300">
-            Help us keep the servers running and the data flowing!
+            Help me keep the servers running and the data flowing!
           </DialogDescription>
         </DialogHeader>
         

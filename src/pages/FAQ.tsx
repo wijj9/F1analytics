@@ -29,7 +29,7 @@ const faqs = [
   },
   {
     question: "How can I report a bug or suggest a feature?",
-    answer: "Please use the project's GitHub repository issue tracker.",
+    answer: "Feel free to report bugs or suggest features by sending an email to bigunit4269@gmail.com. I would love to hear your feedback!",
   },
 ];
 
