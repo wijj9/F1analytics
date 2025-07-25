@@ -18,6 +18,7 @@ import GoogleAnalytics from "@/components/GoogleAnalytics.tsx";
 import { Analytics } from "@vercel/analytics/react";
 import SuccessPage from "./pages/SuccessPage"; // ✅ ADDED
 import Live from "./pages/Live.tsx";
+import Navbar from "@/components/Navbar.tsx";
 // import CancelPage from "./pages/CancelPage"; // Optional: Uncomment if needed
 
 const queryClient = new QueryClient();
@@ -58,7 +59,7 @@ const App = () => (
                 <Route path="/races" element={<MainLayout><Races /></MainLayout>} />
                 <Route path="/standings/teams" element={<MainLayout><TeamStandings /></MainLayout>} />
                 <Route path="/standings/drivers" element={<MainLayout><DriverStandings /></MainLayout>} />
-                <Route path="/live" element={<MainLayout><Live /></MainLayout>} /> {/* ✅ Live route added */}
+                <Route path="/live" element={<MainLayout><Navbar /><Live /></MainLayout>} /> {/* ✅ Live route added */}
 
                 {/* 404 Fallback */}
                 <Route path="*" element={<MainLayout><NotFound /></MainLayout>} />

@@ -47,8 +47,8 @@ const Navbar = () => {
     { name: 'Races', href: '/races', icon: <Flag size={18} /> },
     { name: 'Drivers', href: '/standings/drivers', icon: <Users size={18} /> },
     { name: 'Teams', href: '/standings/teams', icon: <UsersRound size={18} /> },
+    { name: 'Live (Beta)', href: '/Live', icon: <Radio size={18} /> },
     { name: 'Shop', href: '/Shop', icon: <ShoppingBasket size={18} /> },
-    { name: 'Live', href: '/Live', icon: <Radio size={18} /> },
   ];
 
   // Loading state while checking auth
