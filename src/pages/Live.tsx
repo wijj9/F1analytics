@@ -1,5 +1,5 @@
 import React from 'react';
-
+const twitchParent = window.location.hostname;
 const Live: React.FC = () => {
     return (
         <div className="w-full min-h-screen bg-black flex flex-col md:flex-row p-4 gap-4">
@@ -18,7 +18,7 @@ const Live: React.FC = () => {
             {/* Twitch Chat iframe (right side) */}
             <div className="w-full md:w-[350px]">
                 <iframe
-                    src="https://www.twitch.tv/embed/bigunit_42/chat?parent=localhost"
+                    src={`https://www.twitch.tv/embed/bigunit_42/chat?parent=${twitchParent}`}
                     style={{
                         zIndex: 0, // Ensure it's not being overlapped
                         pointerEvents: 'auto', // Allow interaction
