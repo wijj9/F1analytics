@@ -9,7 +9,7 @@ import {
   Flag,
   Users,
   UsersRound,
-  ChevronRight, ShoppingBasket
+  ChevronRight, ShoppingBasket, Radio
 } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -48,6 +48,7 @@ const Navbar = () => {
     { name: 'Drivers', href: '/standings/drivers', icon: <Users size={18} /> },
     { name: 'Teams', href: '/standings/teams', icon: <UsersRound size={18} /> },
     { name: 'Shop', href: '/Shop', icon: <ShoppingBasket size={18} /> },
+    { name: 'Live', href: '/Live', icon: <Radio size={18} /> },
   ];
 
   // Loading state while checking auth
