@@ -9,61 +9,65 @@ import TeamStandings from "./pages/TeamStandings";
 import DriverStandings from "./pages/DriverStandings";
 import Races from "./pages/Races";
 import NotFound from "./pages/NotFound";
-
 import FAQ from "./pages/FAQ";
 import Footer from "./components/Footer";
 import { SeasonProvider } from "./contexts/SeasonContext";
 import { AuthProvider } from "./contexts/AuthContext";
 import ScrollToTop from "@/components/ScrollToTop";
 import GoogleAnalytics from "@/components/GoogleAnalytics.tsx";
-import { Analytics } from "@vercel/analytics/react"
+import { Analytics } from "@vercel/analytics/react";
+import SuccessPage from "./pages/SuccessPage"; // ✅ ADDED
+import Live from "./pages/Live.tsx";
+// import CancelPage from "./pages/CancelPage"; // Optional: Uncomment if needed
 
 const queryClient = new QueryClient();
 
 // Layout component to add footer to pages
 const MainLayout = ({ children }: { children: React.ReactNode }) => (
-  <div className="min-h-screen flex flex-col">
-    {children}
-    <Footer />
-  </div>
+    <div className="min-h-screen flex flex-col">
+      {children}
+      <Footer />
+    </div>
 );
 
-// Landing layout with custom footer
-
-
 const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <SeasonProvider>
-        <AuthProvider>
-          <GoogleAnalytics /> {/* Google Analytics is initialized here */}
-          <Analytics />
-          <BrowserRouter>
-            <ScrollToTop />
-            <Routes>
-              {/* Landing Page Route (with LandingFooter) */}
-              <Route path="/" element={<MainLayout><Dashboard /></MainLayout>} />
+    <QueryClientProvider client={queryClient}>
+      <TooltipProvider>
+        <Toaster />
+        <Sonner />
+        <SeasonProvider>
+          <AuthProvider>
+            <GoogleAnalytics />
+            <Analytics />
+            <BrowserRouter>
+              <ScrollToTop />
+              <Routes>
+                {/* Landing Page Route */}
+                <Route path="/" element={<MainLayout><Dashboard /></MainLayout>} />
 
-              {/* Public Info Pages */}
-              <Route path="/faq" element={<MainLayout><FAQ /></MainLayout>} />
+                {/* ✅ Stripe Payment Result Pages */}
+                <Route path="/success" element={<MainLayout><SuccessPage /></MainLayout>} />
+                {/* <Route path="/cancel" element={<MainLayout><CancelPage /></MainLayout>} /> */}
 
-              {/* All routes are now public */}
-              <Route path="/dashboard" element={<MainLayout><Dashboard /></MainLayout>} />
-              <Route path="/race/:raceId" element={<MainLayout><Race /></MainLayout>} />
-              <Route path="/races" element={<MainLayout><Races /></MainLayout>} />
-              <Route path="/standings/teams" element={<MainLayout><TeamStandings /></MainLayout>} />
-              <Route path="/standings/drivers" element={<MainLayout><DriverStandings /></MainLayout>} />
+                {/* Public Info Pages */}
+                <Route path="/faq" element={<MainLayout><FAQ /></MainLayout>} />
 
-              {/* 404 page */}
-              <Route path="*" element={<MainLayout><NotFound /></MainLayout>} />
-            </Routes>
-          </BrowserRouter>
-        </AuthProvider>
-      </SeasonProvider>
-    </TooltipProvider>
-  </QueryClientProvider>
+                {/* Main App Pages */}
+                <Route path="/dashboard" element={<MainLayout><Dashboard /></MainLayout>} />
+                <Route path="/race/:raceId" element={<MainLayout><Race /></MainLayout>} />
+                <Route path="/races" element={<MainLayout><Races /></MainLayout>} />
+                <Route path="/standings/teams" element={<MainLayout><TeamStandings /></MainLayout>} />
+                <Route path="/standings/drivers" element={<MainLayout><DriverStandings /></MainLayout>} />
+                <Route path="/live" element={<MainLayout><Live /></MainLayout>} /> {/* ✅ Live route added */}
+
+                {/* 404 Fallback */}
+                <Route path="*" element={<MainLayout><NotFound /></MainLayout>} />
+              </Routes>
+            </BrowserRouter>
+          </AuthProvider>
+        </SeasonProvider>
+      </TooltipProvider>
+    </QueryClientProvider>
 );
 
 export default App;

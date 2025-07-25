@@ -37,7 +37,7 @@ import DRSChart from '@/components/DRSChart';
 import PositionsTabContent from '@/components/PositionsTabContent';
 import KofiDonationPopup from '@/components/KofiDonationPopup';
 import { useDonationPopup } from '@/hooks/useDonationPopup';
-
+import Paywall from "@/components/Paywall";
 // Helper to get team color class
 const getTeamColorClass = (teamName: string | undefined): string => {
     if (!teamName) return 'gray';
@@ -545,6 +545,7 @@ const Race = () => {
 
             {/* Lap Times Tab (Show for all sessions now) */}
             <TabsContent value="laptimes" className="pt-2">
+                {/*<Paywall>*/}
               {year && eventName && (
                 <>
                   <RacingChart 
@@ -555,10 +556,12 @@ const Race = () => {
                   />
                 </>
               )}
+                {/*</Paywall>*/}
             </TabsContent>
 
             {/* Circuit Comparison Tab (Show for all sessions now) */}
             <TabsContent value="circuit" className="pt-2">
+                {/*<Paywall>*/}
               {year && eventName && (
                 <>
                   <CircuitComparisonChart
@@ -628,6 +631,7 @@ const Race = () => {
                   </div>
                 </>
               )}
+                {/*</Paywall>*/}
             </TabsContent>
 
             {/* Strategy Tab (Only Race or Sprint) */}
@@ -639,6 +643,7 @@ const Race = () => {
 
             {/* Telemetry Tab (Show for all sessions now) */}
             <TabsContent value="telemetry" className="pt-2">
+                {/*<Paywall>*/}
                {year && eventName && (
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
                       {/* Speed Trace */}
@@ -686,6 +691,7 @@ const Race = () => {
                       />
                   </div>
                )}
+                {/*</Paywall>*/}
             </TabsContent>
 
           </Tabs>
