@@ -22,7 +22,7 @@ interface LocalRaceData {
 const twitchParent = window.location.hostname;
 
 const Live: React.FC = () => {
-    const [isLive] = useState(false);
+    const [isLive] = useState(true);
     const { selectedYear } = useSeason();
     const [localSessions, setLocalSessions] = useState<Record<string, SessionData[]>>({});
 
@@ -125,8 +125,8 @@ const Live: React.FC = () => {
                     </div>
                     <div className="w-full md:w-[350px]">
                         <iframe
-                            src={`https://www.twitch.tv/embed/bigunit_42/chat?parent=${twitchParent}`}
-                            className="rounded-xl shadow-lg w-full h-[600px] border border-gray-800/80"
+                            src={`https://www.twitch.tv/embed/bigunit_42/chat?parent=${twitchParent}&darkpopout`}
+                            className="rounded-xl shadow-lg w-full h-[750px] border border-gray-800/80"
                             allowFullScreen
                             title="Twitch Chat"
                         ></iframe>
