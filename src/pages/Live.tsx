@@ -22,7 +22,7 @@ interface LocalRaceData {
 const twitchParent = window.location.hostname;
 
 const Live: React.FC = () => {
-    const [isLive] = useState(true);
+    const [isLive] = useState(false);
     const { selectedYear } = useSeason();
     const [localSessions, setLocalSessions] = useState<Record<string, SessionData[]>>({});
 
