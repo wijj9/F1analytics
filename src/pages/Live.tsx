@@ -120,30 +120,28 @@ const Live: React.FC = () => {
     };
 
     return (
-        <div className="min-h-screen w-full bg-gradient-to-b from-gray-950 via-black to-gray-950 text-white px-4 py-4">
+        <div className="h-screen w-full bg-gradient-to-b from-gray-950 via-black to-gray-950 text-white px-4 py-4">
             {isLive ? (
-                <div className="flex flex-col md:flex-row gap-6">
-                    <div className="flex-1">
+                <div className="flex flex-col md:flex-row gap-6 h-[calc(100vh-8rem)]">
+                    <div className="flex-1 h-full">
                         <iframe
                             src="https://embedrun.store/embed/e1143ef0-3bc4-11f0-afb1-ecf4bbdafde4"
-                            width="100%"
-                            height="600"
-                            allowFullScreen
                             className="w-full h-full rounded-xl shadow-lg border border-red-600/40"
+                            allowFullScreen
                             frameBorder="0"
                         ></iframe>
                     </div>
-                    <div className="w-full md:w-[350px]">
+                    <div className="w-full md:w-[350px] h-full">
                         <iframe
                             src={`https://www.twitch.tv/embed/bigunit_42/chat?parent=${twitchParent}&darkpopout`}
-                            className="rounded-xl shadow-lg w-full h-[750px] border border-gray-800/80"
+                            className="rounded-xl shadow-lg w-full h-full border border-gray-800/80"
                             allowFullScreen
                             title="Twitch Chat"
                         ></iframe>
                     </div>
                 </div>
             ) : (
-                <div className="max-w-3xl mx-auto flex flex-col items-center text-center space-y-4">
+                <div className="max-w-3xl mx-auto flex flex-col items-center text-center space-y-4 pt-12">
                     <img
                         src="/f1_ferrari.jpeg"
                         alt="Formula 1 Placeholder"
@@ -153,7 +151,6 @@ const Live: React.FC = () => {
                     <h1 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-red-500 to-red-300 bg-clip-text text-transparent tracking-wide">
                         Live Coverage Coming Soon
                     </h1>
-
 
                     <div className="w-full space-y-4">
                         {isLoading ? (
