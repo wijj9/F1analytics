@@ -22,7 +22,7 @@ interface LocalRaceData {
 const twitchParent = window.location.hostname;
 
 const Live: React.FC = () => {
-    const [isLive] = useState(false);
+    const [isLive] = useState(true);
     const { selectedYear } = useSeason();
     const [localSessions, setLocalSessions] = useState<Record<string, SessionData[]>>({});
 
@@ -51,13 +51,23 @@ const Live: React.FC = () => {
                 raceDataToUse.forEach((race) => {
                     const sessions: SessionData[] = [];
 
-                    Object.entries(race.sessions).forEach(([sessionName, utcTime]) => {
-                        const berlinTime = DateTime.fromISO(utcTime, { zone: 'utc' }).setZone('Europe/Berlin');
+                    Object.entries(race.sessions).forEach(([sessionName, rawTimeStr]) => {
+                        // ✅ Force Luxon to parse as Berlin time, IGNORING the "Z"
+                        const berlinTime = DateTime.fromFormat(rawTimeStr, "yyyy-MM-dd'T'HH:mm:ss'Z'", {
+                            zone: 'Europe/Berlin',
+                        });
+
+                        // 🔁 Convert to UTC for display
+                        const utcTime = berlinTime.setZone('utc');
+
                         sessions.push({
                             session: sessionName,
-                            time: berlinTime.toFormat('dd MMM, HH:mm'),
+                            time: `${berlinTime.toFormat('dd MMM, HH:mm')} (UTC ${utcTime.toFormat('HH:mm')})`,
                         });
                     });
+
+
+
 
                     // Use both slug and country+circuit as keys for better matching
                     sessionMap[race.slug] = sessions;
