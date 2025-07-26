@@ -138,6 +138,15 @@ const Live: React.FC = () => {
                             allowFullScreen
                             title="Twitch Chat"
                         ></iframe>
+
+                        <a
+                            href="https://www.twitch.tv/popout/bigunit_42/chat"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-xs text-center text-gray-400 underline hover:text-red-400"
+                        >
+                            Having issues? Open chat in a new tab →
+                        </a>
                     </div>
                 </div>
             ) : (
