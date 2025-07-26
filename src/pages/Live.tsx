@@ -150,7 +150,7 @@ const Live: React.FC = () => {
                     </div>
                 </div>
             ) : (
-                <div className="max-w-3xl mx-auto flex flex-col items-center text-center space-y-4 pt-12">
+                <div className="max-w-3xl mx-auto flex flex-col items-center text-center space-y-4">
                     <img
                         src="/f1_ferrari.jpeg"
                         alt="Formula 1 Placeholder"
