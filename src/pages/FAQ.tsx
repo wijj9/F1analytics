@@ -31,6 +31,10 @@ const faqs = [
     question: "How can I report a bug or suggest a feature?",
     answer: "Feel free to report bugs or suggest features by sending an email to bigunit4269@gmail.com. I would love to hear your feedback!",
   },
+  {
+    question: "Are you officially broadcasting the F1 live stream?",
+    answer: "No. The live stream embedded on this website is not hosted or broadcasted by us. It is provided through a publicly available third-party iframe. F1 Analytics does not host, control, or distribute any live video content. We are simply embedding the stream for convenience using publicly accessible tools. All rights to the video content belong to their respective owners. F1 Analytics is not affiliated with the stream provider, nor do control or guarantee the availability or quality of the stream.",
+  },
 ];
 
 const FAQ = () => {
